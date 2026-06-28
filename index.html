@@ -228,23 +228,24 @@
         for (const file of fontFiles) {
           const fontName = file.name.substring(0, file.name.lastIndexOf('.'));
           const ext = file.name.split('.').pop().toLowerCase();
-          const localUrl = encodeURI(`./${file.name}`);
+          const localUrl = encodeURI(`./${file.name}`).replace(/'/g, '%27');
+          const safeFontFamily = `fontsy-css-${Math.random().toString(36).substr(2, 9)}`;
 
-          injectFontFaceCSS(fontName, localUrl, ext);
+          injectFontFaceCSS(safeFontFamily, localUrl, ext);
 
           systemFonts.push({
-            id: fontName.replace(/\s+/g, '-').toLowerCase() + '-' + Math.random().toString(36).substr(2, 5),
-            name: fontName,
+            id: safeFontFamily,
+            name: safeFontFamily,
             hebrewName: fontName,
             creator: 'פונט חופשי',
             category: ext.toUpperCase().startsWith('WOFF') ? 'WOFF' : ext.toUpperCase(),
-            family: `'${fontName}', system-ui, sans-serif`,
+            family: `'${safeFontFamily}', system-ui, sans-serif`,
             downloadUrl: localUrl,
             license: 'חופשי',
             isUploaded: false
           });
 
-          const fontFace = new FontFace(fontName, `url(${localUrl})`);
+          const fontFace = new FontFace(safeFontFamily, `url(${localUrl})`);
           document.fonts.add(fontFace);
           fontFace.load().then(() => {
             renderFonts();
@@ -264,8 +265,8 @@
       }
     }
 
-    function injectFontFaceCSS(fontName, url, ext) {
-      const styleId = `style-${fontName.replace(/[^a-zA-Z0-9א-ת_-]/g, '')}`;
+    function injectFontFaceCSS(safeFontName, url, ext) {
+      const styleId = `style-${safeFontName}`;
       if (!document.getElementById(styleId)) {
         let format = 'truetype';
         if (ext === 'otf') format = 'opentype';
@@ -276,7 +277,7 @@
         style.id = styleId;
         style.textContent = `
           @font-face {
-            font-family: '${fontName}';
+            font-family: '${safeFontName}';
             src: url('${url}') format('${format}');
             font-display: swap;
           }
@@ -345,7 +346,7 @@
 
             <div class="py-2">
               <textarea 
-                style="font-family: '${font.name}', system-ui, sans-serif; font-size: ${currentFontSize}px;" 
+                style="font-family: ${font.family}; font-size: ${currentFontSize}px;" 
                 class="w-full bg-transparent resize-none overflow-hidden focus:outline-none border-none p-0 leading-normal text-slate-900 placeholder-slate-300"
                 rows="1"
                 placeholder="הקש כאן כדי לנסות..."
@@ -353,7 +354,7 @@
             </div>
 
             <div class="text-xs text-slate-300 font-bold tracking-widest pt-2 border-t border-slate-50/50 flex justify-between items-center select-none">
-              <span style="font-family: '${font.name}', system-ui, sans-serif;">א ב ג ד ה ו ז ח ט י כ ל מ נ ס ע פ צ ק ר ש ת</span>
+              <span style="font-family: ${font.family};">א ב ג ד ה ו ז ח ט י כ ל מ נ ס ע פ צ ק ר ש ת</span>
               <span class="text-[10px] bg-slate-50 text-slate-400 px-2.5 py-1 rounded-lg">תווים לדוגמה</span>
             </div>
           </div>
@@ -368,7 +369,7 @@
               </button>
             </div>
 
-            <button onclick="downloadFontLocal('${font.downloadUrl}', '${font.name}')" class="flex items-center space-x-2 space-x-reverse bg-brand-50 hover:bg-brand-100 text-brand-600 px-6 py-3 rounded-2xl text-xs font-black transition-all">
+            <button onclick="downloadFontLocal('${font.downloadUrl}', '${font.hebrewName}')" class="flex items-center space-x-2 space-x-reverse bg-brand-50 hover:bg-brand-100 text-brand-600 px-6 py-3 rounded-2xl text-xs font-black transition-all">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
               </svg>
