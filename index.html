@@ -8,17 +8,16 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
           colors: {
             brand: {
-              50: '#f5f3ff',
-              100: '#ede9fe',
-              500: '#8b5cf6',
-              600: '#7c3aed',
-              700: '#6d28d9',
-              900: '#4c1d95',
+              50: '#faf8ff',
+              100: '#f3e8ff',
+              500: '#a855f7',
+              600: '#9333ea',
+              700: '#7e22ce',
+              900: '#581c87',
             }
           }
         }
@@ -26,175 +25,150 @@
     }
   </script>
   <style>
-    .font-card {
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    .specimen-card {
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .font-card:hover {
-      transform: translateY(-4px);
+    .specimen-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05);
     }
     ::-webkit-scrollbar {
-      width: 8px;
+      width: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .dark ::-webkit-scrollbar-track {
-      background: #0f172a;
+      background: #f8fafc;
     }
     ::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 4px;
-    }
-    .dark ::-webkit-scrollbar-thumb {
-      background: #334155;
+      background: #e2e8f0;
+      border-radius: 99px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #94a3b8;
+      background: #cbd5e1;
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100 selection:bg-brand-100 dark:selection:bg-brand-900/40">
+<body class="bg-gradient-to-br from-slate-50 via-purple-50/20 to-slate-50 text-slate-800 min-h-screen selection:bg-brand-100">
 
   <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
-    <div class="bg-slate-900 text-white dark:bg-white dark:text-slate-900 px-6 py-4 rounded-2xl shadow-xl flex items-center space-x-3 space-x-reverse border border-slate-800 dark:border-slate-200">
+    <div class="bg-slate-900 text-white px-6 py-4 rounded-2xl shadow-xl flex items-center space-x-3 space-x-reverse border border-slate-800">
       <span id="toast-icon">✨</span>
-      <p id="toast-message" class="text-sm font-medium"></p>
+      <p id="toast-message" class="text-sm font-semibold"></p>
     </div>
   </div>
 
-  <header class="sticky top-0 z-40 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md border-b border-slate-100 dark:border-slate-900 transition-colors duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+  <header class="sticky top-0 z-40 bg-white/70 backdrop-blur-md border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
       
-      <div class="flex items-center space-x-3 space-x-reverse">
-        <img src="1.ico" alt="לוגו" class="w-10 h-10 object-contain rounded-lg shadow-sm" onerror="this.style.display='none'; document.getElementById('logo-placeholder').style.display='flex'">
-        <div id="logo-placeholder" class="hidden w-10 h-10 bg-gradient-to-tr from-brand-500 to-indigo-600 rounded-xl items-center justify-center text-white font-bold text-xl shadow-lg">
+      <div class="flex items-center space-x-4 space-x-reverse">
+        <img src="1.ico" alt="לוגו" class="w-12 h-12 object-contain rounded-xl" onerror="this.style.display='none'; document.getElementById('logo-placeholder').style.display='flex'">
+        <div id="logo-placeholder" class="hidden w-12 h-12 bg-gradient-to-tr from-brand-500 to-indigo-600 rounded-2xl items-center justify-center text-white font-black text-2xl shadow-md">
           פ
         </div>
         <div>
-          <h1 class="text-2xl font-bold tracking-tight bg-gradient-to-r from-brand-600 to-indigo-600 dark:from-brand-400 dark:to-indigo-400 bg-clip-text text-transparent">פונטסי</h1>
-          <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">קטלוג פונטים חופשיים בעברית</p>
+          <h1 class="text-2xl sm:text-3xl font-black tracking-tight bg-gradient-to-r from-brand-600 to-indigo-600 bg-clip-text text-transparent">פונטסי</h1>
+          <p class="text-[11px] text-slate-400 font-bold tracking-wider uppercase">אוצרות פונטים בעברית</p>
         </div>
       </div>
 
       <div class="flex items-center space-x-3 space-x-reverse">
-        <label for="font-upload" class="flex items-center space-x-2 space-x-reverse cursor-pointer px-4 py-2.5 rounded-xl bg-brand-50 hover:bg-brand-100 text-brand-600 dark:bg-brand-950/40 dark:hover:bg-brand-900/30 dark:text-brand-300 text-sm font-semibold transition-all shadow-sm">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <label for="font-upload" class="cursor-pointer px-5 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white text-sm font-bold transition-all shadow-sm flex items-center space-x-2 space-x-reverse">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
           </svg>
-          <span class="hidden sm:inline">נסה פונט משלך</span>
+          <span>העלאה זמנית</span>
         </label>
         <input type="file" id="font-upload" accept=".ttf,.otf,.woff,.woff2" class="hidden">
-
-        <button id="theme-toggle" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors">
-          <svg id="theme-icon" class="w-5 h-5 text-slate-700 dark:text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-          </svg>
-        </button>
       </div>
 
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <main class="max-w-7xl mx-auto px-6 py-12">
     
-    <div class="mb-10 text-center sm:text-right">
-      <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">גלריית פונטים מעוצבים בעברית</h2>
-      <p class="mt-2 text-slate-500 dark:text-slate-400 max-w-2xl font-medium">הקלידו טקסט, שנו את הגודל, בדקו את מראה הפונטים השונים והורידו את הפונט המועדף עליכם ישירות למחשב.</p>
+    <div class="mb-16 text-center sm:text-right max-w-3xl">
+      <h2 class="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 leading-tight">גלו את היופי שבכתב העברי</h2>
+      <p class="mt-4 text-base sm:text-lg text-slate-500 font-medium leading-relaxed">קטלוג מעוצב המאפשר לכם לבדוק, לערוך ולהוריד פונטים חופשיים ואיכותיים לעברית ישירות למחשב שלכם.</p>
     </div>
 
-    <section class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800/80 shadow-md mb-8 space-y-6">
-      
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-end">
+    <section class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm mb-12 space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
         
         <div class="lg:col-span-5 space-y-2">
-          <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">טקסט תצוגה מקדימה</label>
+          <label class="block text-xs font-black text-slate-400 uppercase tracking-wider">טקסט תצוגה גלובלי</label>
           <div class="relative">
-            <input type="text" id="global-preview-text" value="זה אתר של פונטים בעברית" class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm font-medium outline-none transition-all">
-            <button id="reset-preview-text" class="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-brand-500 font-semibold transition-colors">איפוס</button>
-          </div>
-        </div>
-
-        <div class="lg:col-span-3 space-y-2">
-          <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">חיפוש פונט</label>
-          <div class="relative">
-            <input type="text" id="search-input" placeholder="הקלד שם פונט..." class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl pr-10 pl-4 py-3 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm font-medium outline-none transition-all">
-            <svg class="absolute right-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m21-21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-            </svg>
+            <input type="text" id="global-preview-text" value="זה אתר של פונטים בעברית" class="w-full bg-slate-50/50 border border-slate-100 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-brand-500 text-sm font-bold outline-none transition-all text-slate-800">
+            <button id="reset-preview-text" class="absolute left-4 top-1/2 -translate-y-1/2 text-xs text-brand-600 hover:text-brand-700 font-bold transition-colors">איפוס</button>
           </div>
         </div>
 
         <div class="lg:col-span-4 space-y-2">
-          <div class="flex justify-between items-center">
-            <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">גודל טקסט: <span id="font-size-val" class="text-brand-500 dark:text-brand-400 font-bold">36px</span></label>
-            <button id="reset-size" class="text-xs text-slate-400 hover:text-brand-500 font-semibold transition-colors">ברירת מחדל</button>
+          <label class="block text-xs font-black text-slate-400 uppercase tracking-wider">חיפוש פונטים בקטלוג</label>
+          <div class="relative">
+            <input type="text" id="search-input" placeholder="הקלידו שם פונט..." class="w-full bg-slate-50/50 border border-slate-100 rounded-2xl pr-12 pl-4 py-4 focus:ring-2 focus:ring-brand-500 text-sm font-bold outline-none transition-all text-slate-800">
+            <div class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m21-21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+              </svg>
+            </div>
           </div>
-          <div class="flex items-center space-x-3 space-x-reverse h-12">
+        </div>
+
+        <div class="lg:col-span-3 space-y-2">
+          <div class="flex justify-between items-center">
+            <label class="block text-xs font-black text-slate-400 uppercase tracking-wider">גודל טקסט: <span id="font-size-val" class="text-brand-600 font-black">40px</span></label>
+          </div>
+          <div class="flex items-center space-x-3 space-x-reverse h-14">
             <span class="text-xs font-bold text-slate-400">א</span>
-            <input type="range" id="font-size-slider" min="16" max="96" value="36" class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-500 dark:accent-brand-400">
+            <input type="range" id="font-size-slider" min="20" max="80" value="40" class="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-brand-500">
             <span class="text-lg font-bold text-slate-400">א</span>
           </div>
         </div>
 
       </div>
 
-      <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 dark:border-slate-800/60">
-        <span class="text-xs font-bold text-slate-400 ml-2 uppercase">פורמט:</span>
-        <button data-category="all" class="category-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-500 text-white shadow-sm">הכל</button>
-        <button data-category="TTF" class="category-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-100 hover:bg-slate-200 text-slate-600 dark:bg-slate-950 dark:hover:bg-slate-800 dark:text-slate-300">TTF</button>
-        <button data-category="OTF" class="category-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-100 hover:bg-slate-200 text-slate-600 dark:bg-slate-950 dark:hover:bg-slate-800 dark:text-slate-300">OTF</button>
-        <button data-category="WOFF" class="category-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-100 hover:bg-slate-200 text-slate-600 dark:bg-slate-950 dark:hover:bg-slate-800 dark:text-slate-300">WOFF</button>
-        <button data-category="My Uploads" class="category-btn hidden px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-100 hover:bg-slate-200 text-slate-600 dark:bg-slate-950 dark:hover:bg-slate-800 dark:text-slate-300">העלאות שלי (<span id="upload-count">0</span>)</button>
+      <div class="flex flex-wrap items-center gap-2 pt-4 border-t border-slate-50">
+        <span class="text-xs font-black text-slate-400 ml-2 uppercase">פורמט:</span>
+        <button data-category="all" class="category-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-brand-500 text-white shadow-md shadow-brand-500/10">הכל</button>
+        <button data-category="TTF" class="category-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-50 hover:bg-slate-100 text-slate-600">TTF</button>
+        <button data-category="OTF" class="category-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-50 hover:bg-slate-100 text-slate-600">OTF</button>
+        <button data-category="WOFF" class="category-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-50 hover:bg-slate-100 text-slate-600">WOFF</button>
+        <button data-category="My Uploads" class="category-btn hidden px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-50 hover:bg-slate-100 text-slate-600">העלאות שלי (<span id="upload-count">0</span>)</button>
       </div>
-
     </section>
 
-    <div id="drop-zone" class="mb-8 border-2 border-dashed border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-400 rounded-2xl p-6 text-center transition-all cursor-pointer bg-white dark:bg-slate-900 shadow-sm group">
-      <div class="flex flex-col items-center justify-center space-y-2">
-        <div class="p-3 bg-brand-50 dark:bg-brand-950/40 rounded-full text-brand-500 group-hover:scale-110 transition-transform">
-          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <div id="drop-zone" class="mb-12 border-2 border-dashed border-slate-200 hover:border-brand-500 rounded-3xl p-8 text-center transition-all cursor-pointer bg-white shadow-sm group">
+      <div class="flex flex-col items-center justify-center space-y-3">
+        <div class="p-4 bg-brand-50 rounded-2xl text-brand-500 group-hover:scale-105 transition-transform">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
           </svg>
         </div>
-        <p class="text-sm font-bold text-slate-700 dark:text-slate-200">גררו לכאן קובץ פונט נוסף לבדיקה מהירה</p>
-        <p class="text-xs text-slate-400">הקובץ נטען מקומית בדפדפן בלבד ואינו נשלח לשרת</p>
+        <p class="text-sm font-bold text-slate-700">רוצים לנסות פונט משלכם בממשק? גררו אותו לכאן</p>
+        <p class="text-xs text-slate-400 font-medium">קבצי TTF / OTF / WOFF ייטענו בצורה מאובטחת ומקומית בדפדפן</p>
       </div>
     </div>
 
-    <div id="loading-state" class="hidden flex-col items-center justify-center py-12 space-y-3">
-      <div class="w-10 h-10 border-4 border-brand-500 border-t-transparent rounded-full animate-spin"></div>
-      <p class="text-sm font-bold text-slate-500">טוען את גלריית הפונטים...</p>
+    <div id="loading-state" class="hidden flex-col items-center justify-center py-20 space-y-3">
+      <div class="w-12 h-12 border-4 border-brand-500 border-t-transparent rounded-full animate-spin"></div>
+      <p class="text-sm font-bold text-slate-400">טוען ומעבד את אוסף הפונטים...</p>
     </div>
 
-    <div id="fonts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+    <div id="fonts-grid" class="grid grid-cols-1 gap-8"></div>
 
-    <div id="empty-state" class="hidden flex-col items-center justify-center py-16 text-center space-y-4">
-      <span class="text-4xl">🔍</span>
-      <h3 class="text-lg font-bold text-slate-700 dark:text-slate-300">לא נמצאו פונטים בקטלוג</h3>
-      <p class="text-sm text-slate-400 max-w-xs">העלו קבצי פונטים או גררו אותם לכאן כדי להתחיל.</p>
+    <div id="empty-state" class="hidden flex-col items-center justify-center py-20 text-center space-y-4">
+      <span class="text-5xl">✨</span>
+      <h3 class="text-xl font-bold text-slate-700">הקטלוג מוכן לפונטים שלכם</h3>
+      <p class="text-sm text-slate-400 max-w-xs font-medium">גררו קבצים לתיבה או הניחו אותם בתיקיית המאגר כדי לראות אותם מוצגים כאן.</p>
     </div>
 
   </main>
-
-  <footer class="mt-20 border-t border-slate-100 dark:border-slate-900 bg-white dark:bg-slate-950 py-8 transition-colors duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
-      <div class="flex items-center space-x-2 space-x-reverse">
-        <span class="font-extrabold text-slate-900 dark:text-white">פונטסי</span>
-        <span class="text-slate-400">|</span>
-        <span class="text-xs text-slate-500">קטלוג פונטים מעוצבים וחופשיים לשימוש</span>
-      </div>
-      <div class="text-xs text-slate-400 dark:text-slate-500 font-medium">
-        כל הזכויות שמורות ליוצרי הפונטים השונים
-      </div>
-    </div>
-  </footer>
 
   <script>
     let uploadedFonts = [];
     let systemFonts = [];
     let currentCategory = 'all';
     let currentSearch = '';
-    let currentFontSize = 36;
+    let currentFontSize = 40;
     let globalPreviewText = "זה אתר של פונטים בעברית";
 
     const fontsGrid = document.getElementById('fonts-grid');
@@ -205,22 +179,13 @@
     const fontSizeSlider = document.getElementById('font-size-slider');
     const fontSizeVal = document.getElementById('font-size-val');
     const categoryBtns = document.querySelectorAll('.category-btn');
-    const themeToggleBtn = document.getElementById('theme-toggle');
     const fontUploadInput = document.getElementById('font-upload');
     const dropZone = document.getElementById('drop-zone');
     const uploadCountSpan = document.getElementById('upload-count');
     const uploadTabBtn = document.querySelector('[data-category="My Uploads"]');
     const resetPreviewBtn = document.getElementById('reset-preview-text');
-    const resetSizeBtn = document.getElementById('reset-size');
 
     window.addEventListener('DOMContentLoaded', () => {
-      if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-        updateThemeIcon(true);
-      } else {
-        document.documentElement.classList.remove('dark');
-        updateThemeIcon(false);
-      }
       autoDetectAndLoad();
     });
 
@@ -262,11 +227,10 @@
 
         for (const file of fontFiles) {
           const fontName = file.name.substring(0, file.name.lastIndexOf('.'));
-          const ext = file.name.split('.').pop().toUpperCase();
+          const ext = file.name.split('.').pop().toLowerCase();
           const localUrl = `./${file.name}`;
 
-          const fontFace = new FontFace(fontName, `url(${localUrl})`);
-          document.fonts.add(fontFace);
+          injectFontFaceCSS(fontName, localUrl);
 
           systemFonts.push({
             id: fontName.replace(/\s+/g, '-').toLowerCase() + '-' + Math.random().toString(36).substr(2, 5),
@@ -274,19 +238,15 @@
             hebrewName: fontName,
             creator: 'פונט חופשי',
             category: ext.toUpperCase().startsWith('WOFF') ? 'WOFF' : ext.toUpperCase(),
-            family: `"${fontName}", system-ui, sans-serif`,
+            family: `'${fontName}', system-ui, sans-serif`,
             downloadUrl: localUrl,
             license: 'חופשי',
             isUploaded: false
           });
-
-          fontFace.load().then(() => {
-            renderFonts();
-          }).catch(() => {});
         }
         
         if (systemFonts.length > 0) {
-          showToast(`נטענו בהצלחה ${systemFonts.length} פונטים מקומיים!`, "🎉");
+          showToast(`נטענו בהצלחה ${systemFonts.length} פונטים!`, "🎉");
         }
 
       } catch (e) {
@@ -295,6 +255,22 @@
         loadingState.classList.remove('flex');
         loadingState.classList.add('hidden');
         renderFonts();
+      }
+    }
+
+    function injectFontFaceCSS(fontName, url) {
+      const styleId = `style-${fontName.replace(/\s+/g, '-')}`;
+      if (!document.getElementById(styleId)) {
+        const style = document.createElement('style');
+        style.id = styleId;
+        style.textContent = `
+          @font-face {
+            font-family: '${fontName}';
+            src: url('${url}') format('truetype');
+            font-display: swap;
+          }
+        `;
+        document.head.appendChild(style);
       }
     }
 
@@ -344,44 +320,45 @@
       
       filtered.forEach((font) => {
         const fontCard = document.createElement('div');
-        fontCard.className = "font-card bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:shadow-md flex flex-col justify-between space-y-4";
+        fontCard.className = "specimen-card bg-white border border-slate-100 rounded-3xl p-8 shadow-sm flex flex-col justify-between space-y-6";
         
         fontCard.innerHTML = `
-          <div>
-            <div class="flex items-start justify-between">
+          <div class="space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-50 pb-4">
               <div>
-                <h3 class="text-lg font-bold text-slate-800 dark:text-slate-100">${font.hebrewName}</h3>
-                <p class="text-xs text-slate-400 mt-0.5">${font.creator} • ${font.license}</p>
+                <h3 class="text-xl font-black text-slate-800">${font.hebrewName}</h3>
+                <p class="text-xs text-slate-400 font-bold mt-1">${font.creator} • רישיון ${font.license}</p>
               </div>
-              <span class="px-2.5 py-1 text-[10px] font-bold rounded-lg ${
-                font.isUploaded 
-                ? 'bg-amber-50 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400' 
-                : 'bg-brand-50 text-brand-600 dark:bg-brand-950/40 dark:text-brand-300'
-              }">${font.category}</span>
+              <span class="px-3 py-1.5 text-xs font-extrabold bg-slate-100 text-slate-600 rounded-xl uppercase tracking-wider">${font.category}</span>
             </div>
 
-            <div class="mt-6">
+            <div class="py-2">
               <textarea 
-                style="font-family: ${font.family}; font-size: ${currentFontSize}px;" 
-                class="w-full bg-transparent resize-none overflow-hidden focus:outline-none border-b border-transparent hover:border-slate-100 dark:hover:border-slate-800 focus:border-brand-500 py-1 leading-relaxed text-slate-900 dark:text-white"
-                rows="2"
-                placeholder="הקש לניסיון הפונט..."
+                style="font-family: '${font.name}', system-ui, sans-serif; font-size: ${currentFontSize}px;" 
+                class="w-full bg-transparent resize-none overflow-hidden focus:outline-none border-none p-0 leading-normal text-slate-900 placeholder-slate-300"
+                rows="1"
+                placeholder="הקש כאן כדי לנסות..."
               >${globalPreviewText}</textarea>
+            </div>
+
+            <div class="text-xs text-slate-300 font-bold tracking-widest pt-2 border-t border-slate-50/50 flex justify-between items-center select-none">
+              <span style="font-family: '${font.name}', system-ui, sans-serif;">א ב ג ד ה ו ז ח ט י כ ל מ נ ס ע פ צ ק ר ש ת</span>
+              <span class="text-[10px] bg-slate-50 text-slate-400 px-2.5 py-1 rounded-lg">תווים לדוגמה</span>
             </div>
           </div>
 
-          <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800/80">
-            <div class="flex items-center space-x-1 space-x-reverse text-slate-400">
-              <button onclick="toggleBold(this)" class="p-1.5 hover:text-brand-500 dark:hover:text-brand-400 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                <strong>B</strong>
+          <div class="flex items-center justify-between pt-4 border-t border-slate-50">
+            <div class="flex items-center space-x-2 space-x-reverse">
+              <button onclick="toggleBold(this)" class="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-slate-800 hover:bg-slate-50 rounded-xl transition-all border border-transparent">
+                <strong class="text-sm">B</strong>
               </button>
-              <button onclick="toggleItalic(this)" class="p-1.5 hover:text-brand-500 dark:hover:text-brand-400 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                <span class="italic">I</span>
+              <button onclick="toggleItalic(this)" class="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-slate-800 hover:bg-slate-50 rounded-xl transition-all border border-transparent">
+                <span class="italic text-sm">I</span>
               </button>
             </div>
 
-            <button onclick="downloadFontLocal('${font.downloadUrl}', '${font.name}')" class="flex items-center space-x-1.5 space-x-reverse bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm">
-              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <button onclick="downloadFontLocal('${font.downloadUrl}', '${font.name}')" class="flex items-center space-x-2 space-x-reverse bg-brand-50 hover:bg-brand-100 text-brand-600 px-6 py-3 rounded-2xl text-xs font-black transition-all">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
               </svg>
               <span>הורד פונט</span>
@@ -390,6 +367,12 @@
         `;
         
         const textarea = fontCard.querySelector('textarea');
+        
+        setTimeout(() => {
+          textarea.style.height = 'auto';
+          textarea.style.height = textarea.scrollHeight + 'px';
+        }, 50);
+
         textarea.addEventListener('input', () => {
           textarea.style.height = 'auto';
           textarea.style.height = textarea.scrollHeight + 'px';
@@ -404,6 +387,8 @@
       const textareas = fontsGrid.querySelectorAll('textarea');
       textareas.forEach(ta => {
         ta.value = globalPreviewText;
+        ta.style.height = 'auto';
+        ta.style.height = ta.scrollHeight + 'px';
       });
     });
 
@@ -413,8 +398,10 @@
       const textareas = fontsGrid.querySelectorAll('textarea');
       textareas.forEach(ta => {
         ta.value = globalPreviewText;
+        ta.style.height = 'auto';
+        ta.style.height = ta.scrollHeight + 'px';
       });
-      showToast("טקסט התצוגה המקדימה אופס בהצלחה");
+      showToast("טקסט התצוגה אופס");
     });
 
     fontSizeSlider.addEventListener('input', (e) => {
@@ -423,18 +410,9 @@
       const textareas = fontsGrid.querySelectorAll('textarea');
       textareas.forEach(ta => {
         ta.style.fontSize = `${currentFontSize}px`;
+        ta.style.height = 'auto';
+        ta.style.height = ta.scrollHeight + 'px';
       });
-    });
-
-    resetSizeBtn.addEventListener('click', () => {
-      currentFontSize = 36;
-      fontSizeSlider.value = 36;
-      fontSizeVal.innerText = `36px`;
-      const textareas = fontsGrid.querySelectorAll('textarea');
-      textareas.forEach(ta => {
-        ta.style.fontSize = `36px`;
-      });
-      showToast("גודל הפונט הוחזר לברירת מחדל");
     });
 
     searchInput.addEventListener('input', (e) => {
@@ -445,10 +423,10 @@
     categoryBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         categoryBtns.forEach(b => {
-          b.className = "category-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-100 hover:bg-slate-200 text-slate-600 dark:bg-slate-950 dark:hover:bg-slate-800 dark:text-slate-300";
+          b.className = "category-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-50 hover:bg-slate-100 text-slate-600";
         });
         
-        btn.className = "category-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-500 text-white shadow-sm";
+        btn.className = "category-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-brand-500 text-white shadow-md shadow-brand-500/10";
         
         currentCategory = btn.getAttribute('data-category');
         renderFonts();
@@ -456,31 +434,35 @@
     });
 
     function toggleBold(btn) {
-      const card = btn.closest('.font-card');
+      const card = btn.closest('.specimen-card');
       const textarea = card.querySelector('textarea');
       if (textarea.style.fontWeight === 'bold') {
         textarea.style.fontWeight = 'normal';
-        btn.classList.remove('text-brand-500', 'bg-slate-100', 'dark:bg-slate-800');
+        btn.classList.remove('text-brand-600', 'bg-brand-50');
+        btn.classList.add('text-slate-400');
       } else {
         textarea.style.fontWeight = 'bold';
-        btn.classList.add('text-brand-500', 'bg-slate-100', 'dark:bg-slate-800');
+        btn.classList.add('text-brand-600', 'bg-brand-50');
+        btn.classList.remove('text-slate-400');
       }
     }
 
     function toggleItalic(btn) {
-      const card = btn.closest('.font-card');
+      const card = btn.closest('.specimen-card');
       const textarea = card.querySelector('textarea');
       if (textarea.style.fontStyle === 'italic') {
         textarea.style.fontStyle = 'normal';
-        btn.classList.remove('text-brand-500', 'bg-slate-100', 'dark:bg-slate-800');
+        btn.classList.remove('text-brand-600', 'bg-brand-50');
+        btn.classList.add('text-slate-400');
       } else {
         textarea.style.fontStyle = 'italic';
-        btn.classList.add('text-brand-500', 'bg-slate-100', 'dark:bg-slate-800');
+        btn.classList.add('text-brand-600', 'bg-brand-50');
+        btn.classList.remove('text-slate-400');
       }
     }
 
     function downloadFontLocal(url, name) {
-      showToast(`מוריד את קובץ הפונט: ${name}`, '📥');
+      showToast(`מתחיל להוריד: ${name}`, '📥');
       const link = document.createElement('a');
       link.href = url;
       link.download = `${name}.${url.split('.').pop().toLowerCase()}`;
@@ -490,22 +472,6 @@
       document.body.removeChild(link);
     }
 
-    themeToggleBtn.addEventListener('click', () => {
-      document.documentElement.classList.toggle('dark');
-      const isDark = document.documentElement.classList.contains('dark');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      updateThemeIcon(isDark);
-    });
-
-    function updateThemeIcon(isDark) {
-      const icon = document.getElementById('theme-icon');
-      if (isDark) {
-        icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m0 13.5V21M4.22 4.22l1.58 1.58m12.42 12.42l1.58 1.58M3 12h2.25m13.5 0H21M4.22 19.78l1.58-1.58M17.78 6.22l1.58-1.58M12 7.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Z" />`;
-      } else {
-        icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />`;
-      }
-    }
-
     function handleFontFile(file) {
       if (!file) return;
       
@@ -513,7 +479,7 @@
       const fileExtension = file.name.split('.').pop().toLowerCase();
       
       if (!validExtensions.includes(fileExtension)) {
-        showToast("אנא העלה קובץ פונט מסוג TTF, OTF או WOFF!", "⚠️");
+        showToast("נא להעלות קובץ פונט בלבד", "⚠️");
         return;
       }
 
@@ -532,14 +498,14 @@
 
           const newFont = {
             id: cleanFontFamily,
-            name: fontBaseName,
+            name: cleanFontFamily,
             hebrewName: fontBaseName,
-            creator: 'העלאה מקומית זמנית',
+            creator: 'העלאה אישית',
             category: 'My Uploads',
-            family: `"${cleanFontFamily}"`,
+            family: `'${cleanFontFamily}', system-ui, sans-serif`,
             downloadUrl: objectUrl,
             originalFileName: file.name,
-            license: 'שימוש אישי בדפדפן',
+            license: 'שימוש מקומי',
             isUploaded: true
           };
 
@@ -550,7 +516,7 @@
           
           showToast(`הפונט "${fontBaseName}" נטען בהצלחה!`, "🎉");
         }).catch(() => {
-          showToast("שגיאה בטעינת קובץ הפונט.", "❌");
+          showToast("שגיאה בפענוח הקובץ", "❌");
         });
       };
       
@@ -564,16 +530,16 @@
 
     dropZone.addEventListener('dragover', (e) => {
       e.preventDefault();
-      dropZone.classList.add('border-brand-500', 'bg-brand-50/50', 'dark:bg-brand-950/20');
+      dropZone.classList.add('border-brand-500', 'bg-brand-50/10');
     });
 
     dropZone.addEventListener('dragleave', () => {
-      dropZone.classList.remove('border-brand-500', 'bg-brand-50/50', 'dark:bg-brand-950/20');
+      dropZone.classList.remove('border-brand-500', 'bg-brand-50/10');
     });
 
     dropZone.addEventListener('drop', (e) => {
       e.preventDefault();
-      dropZone.classList.remove('border-brand-500', 'bg-brand-50/50', 'dark:bg-brand-950/20');
+      dropZone.classList.remove('border-brand-500', 'bg-brand-50/10');
       const file = e.dataTransfer.files[0];
       handleFontFile(file);
     });
