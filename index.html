@@ -228,9 +228,9 @@
         for (const file of fontFiles) {
           const fontName = file.name.substring(0, file.name.lastIndexOf('.'));
           const ext = file.name.split('.').pop().toLowerCase();
-          const localUrl = `./${file.name}`;
+          const localUrl = encodeURI(`./${file.name}`);
 
-          injectFontFaceCSS(fontName, localUrl);
+          injectFontFaceCSS(fontName, localUrl, ext);
 
           systemFonts.push({
             id: fontName.replace(/\s+/g, '-').toLowerCase() + '-' + Math.random().toString(36).substr(2, 5),
@@ -243,6 +243,12 @@
             license: 'חופשי',
             isUploaded: false
           });
+
+          const fontFace = new FontFace(fontName, `url(${localUrl})`);
+          document.fonts.add(fontFace);
+          fontFace.load().then(() => {
+            renderFonts();
+          }).catch(() => {});
         }
         
         if (systemFonts.length > 0) {
@@ -258,15 +264,20 @@
       }
     }
 
-    function injectFontFaceCSS(fontName, url) {
-      const styleId = `style-${fontName.replace(/\s+/g, '-')}`;
+    function injectFontFaceCSS(fontName, url, ext) {
+      const styleId = `style-${fontName.replace(/[^a-zA-Z0-9א-ת_-]/g, '')}`;
       if (!document.getElementById(styleId)) {
+        let format = 'truetype';
+        if (ext === 'otf') format = 'opentype';
+        else if (ext === 'woff') format = 'woff';
+        else if (ext === 'woff2') format = 'woff2';
+
         const style = document.createElement('style');
         style.id = styleId;
         style.textContent = `
           @font-face {
             font-family: '${fontName}';
-            src: url('${url}') format('truetype');
+            src: url('${url}') format('${format}');
             font-display: swap;
           }
         `;
@@ -467,6 +478,7 @@
       link.href = url;
       link.download = `${name}.${url.split('.').pop().toLowerCase()}`;
       link.style.display = 'none';
+      link.target = '_blank';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
