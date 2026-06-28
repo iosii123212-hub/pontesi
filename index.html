@@ -251,10 +251,6 @@
             renderFonts();
           }).catch(() => {});
         }
-        
-        if (systemFonts.length > 0) {
-          showToast(`נטענו בהצלחה ${systemFonts.length} פונטים!`, "🎉");
-        }
 
       } catch (e) {
         showToast("שגיאה בטעינת קטלוג הפונטים.", "❌");
@@ -369,7 +365,7 @@
               </button>
             </div>
 
-            <button onclick="downloadFontLocal('${font.downloadUrl}', '${font.hebrewName}')" class="flex items-center space-x-2 space-x-reverse bg-brand-50 hover:bg-brand-100 text-brand-600 px-6 py-3 rounded-2xl text-xs font-black transition-all">
+            <button onclick="downloadFontById('${font.id}')" class="flex items-center space-x-2 space-x-reverse bg-brand-50 hover:bg-brand-100 text-brand-600 px-6 py-3 rounded-2xl text-xs font-black transition-all">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
               </svg>
@@ -473,11 +469,14 @@
       }
     }
 
-    function downloadFontLocal(url, name) {
-      showToast(`מתחיל להוריד: ${name}`, '📥');
+    function downloadFontById(id) {
+      const font = [...uploadedFonts, ...systemFonts].find(f => f.id === id);
+      if (!font) return;
+      showToast(`מתחיל להוריד: ${font.hebrewName}`, '📥');
       const link = document.createElement('a');
-      link.href = url;
-      link.download = `${name}.${url.split('.').pop().toLowerCase()}`;
+      link.href = font.downloadUrl;
+      const ext = font.downloadUrl.split('?')[0].split('.').pop().toLowerCase();
+      link.download = `${font.hebrewName}.${ext}`;
       link.style.display = 'none';
       link.target = '_blank';
       document.body.appendChild(link);
