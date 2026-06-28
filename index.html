@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>פונטסי - פונטים חופשיים בעברית</title>
-  <link rel="icon" href="1.ico" type="image/x-icon" onerror="this.style.display='none'">
+  <link rel="icon" href="./1.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="./1.ico" type="image/x-icon">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -60,7 +61,7 @@
     <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
       
       <div class="flex items-center space-x-4 space-x-reverse">
-        <img src="1.ico" alt="לוגו" class="w-12 h-12 object-contain rounded-xl" onerror="this.style.display='none'; document.getElementById('logo-placeholder').style.display='flex'">
+        <img src="./1.ico" alt="לוגו" class="w-12 h-12 object-contain rounded-xl shadow-sm" onerror="this.style.display='none'; document.getElementById('logo-placeholder').style.display='flex'">
         <div id="logo-placeholder" class="hidden w-12 h-12 bg-gradient-to-tr from-brand-500 to-indigo-600 rounded-2xl items-center justify-center text-white font-black text-2xl shadow-md">
           פ
         </div>
@@ -148,8 +149,9 @@
       </div>
     </div>
 
-    <div id="loading-state" class="hidden flex-col items-center justify-center py-20 space-y-3">
-      <div class="w-12 h-12 border-4 border-brand-500 border-t-transparent rounded-full animate-spin"></div>
+    <div id="loading-state" class="hidden flex-col items-center justify-center py-20 space-y-4">
+      <img src="./1.ico" alt="טעינה" class="w-12 h-12 object-contain animate-bounce" onerror="this.style.display='none'; document.getElementById('loader-spinner').style.display='block'">
+      <div id="loader-spinner" class="hidden w-12 h-12 border-4 border-brand-500 border-t-transparent rounded-full animate-spin"></div>
       <p class="text-sm font-bold text-slate-400">טוען ומעבד את אוסף הפונטים...</p>
     </div>
 
@@ -162,6 +164,20 @@
     </div>
 
   </main>
+
+  <footer class="mt-20 border-t border-slate-100 bg-white py-8 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+      <div class="flex items-center space-x-3 space-x-reverse">
+        <img src="./1.ico" alt="לוגו" class="w-6 h-6 object-contain" onerror="this.style.display='none'">
+        <span class="font-extrabold text-slate-900">פונטסי</span>
+        <span class="text-slate-300">|</span>
+        <span class="text-xs text-slate-500">קטלוג פונטים מעוצבים וחופשיים לשימוש</span>
+      </div>
+      <div class="text-xs text-slate-400 font-medium">
+        כל הזכויות שמורות ליוצרי הפונטים השונים
+      </div>
+    </div>
+  </footer>
 
   <script>
     let uploadedFonts = [];
