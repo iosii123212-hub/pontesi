@@ -9,201 +9,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#faf8ff',
-              100: '#f3e8ff',
-              500: '#a855f7',
-              600: '#9333ea',
-              700: '#7e22ce',
-              900: '#581c87',
-            }
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    .specimen-card {
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .specimen-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05);
-    }
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #f8fafc;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #e2e8f0;
-      border-radius: 99px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #cbd5e1;
-    }
-    .color-font-render {
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      font-variant-ligatures: common-ligatures;
-    }
-  </style>
-</head>
-<body class="bg-gradient-to-br from-slate-50 via-purple-50/20 to-slate-50 text-slate-800 min-h-screen selection:bg-brand-100 pb-32">
-
-  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
-    <div class="bg-slate-900 text-white px-6 py-4 rounded-2xl shadow-xl flex items-center space-x-3 space-x-reverse border border-slate-800">
-      <span id="toast-icon">✨</span>
-      <p id="toast-message" class="text-sm font-semibold"></p>
-    </div>
-  </div>
-
-  <div id="selection-bar" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 transform translate-y-32 opacity-0 transition-all duration-500 pointer-events-none w-11/12 max-w-2xl">
-    <div class="bg-slate-900/95 backdrop-blur text-white px-6 py-4 rounded-3xl shadow-2xl flex items-center justify-between border border-slate-800 pointer-events-auto">
-      <div class="flex items-center space-x-3 space-x-reverse">
-        <div class="w-8 h-8 rounded-full bg-brand-500 flex items-center justify-center text-xs font-black text-white" id="selection-count">0</div>
-        <p class="text-sm font-bold">משפחות פונטים נבחרו להורדה</p>
-      </div>
-      <div class="flex items-center space-x-2 space-x-reverse">
-        <button id="clear-selection-btn" class="px-4 py-2 text-xs font-bold text-slate-400 hover:text-white transition-colors">בטל בחירה</button>
-        <button id="download-zip-btn" class="bg-brand-500 hover:bg-brand-600 text-white px-5 py-2.5 rounded-2xl text-xs font-black transition-all flex items-center space-x-2 space-x-reverse shadow-lg shadow-brand-500/20">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-          </svg>
-          <span>הורד חבילה מרוכזת (ZIP)</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <header class="sticky top-0 z-40 bg-white/70 backdrop-blur-md border-b border-slate-100">
-    <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
-      
-      <div class="flex items-center space-x-4 space-x-reverse">
-        <img src="./1.ico" alt="לוגו" class="w-12 h-12 object-contain rounded-xl shadow-sm" onerror="this.style.display='none'; document.getElementById('logo-placeholder').style.display='flex'">
-        <div id="logo-placeholder" class="hidden w-12 h-12 bg-gradient-to-tr from-brand-500 to-indigo-600 rounded-2xl items-center justify-center text-white font-black text-2xl shadow-md">
-          פ
-        </div>
-        <div>
-          <h1 class="text-2xl sm:text-3xl font-black tracking-tight bg-gradient-to-r from-brand-600 to-indigo-600 bg-clip-text text-transparent">פונטסי</h1>
-          <p class="text-[11px] text-slate-400 font-bold tracking-wider uppercase">אוצרות פונטים בעברית</p>
-        </div>
-      </div>
-
-      <div class="flex items-center space-x-3 space-x-reverse">
-        <label for="font-upload" class="cursor-pointer px-5 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white text-sm font-bold transition-all shadow-sm flex items-center space-x-2 space-x-reverse">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
-          </svg>
-          <span>העלאה זמנית</span>
-        </label>
-        <input type="file" id="font-upload" accept=".ttf,.otf,.woff,.woff2" class="hidden">
-      </div>
-
-    </div>
-  </header>
-
-  <main class="max-w-7xl mx-auto px-6 py-12">
-    
-    <div class="mb-16 text-center sm:text-right max-w-3xl">
-      <h2 class="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 leading-tight">גלו את היופי שבכתב העברי</h2>
-      <p class="mt-4 text-base sm:text-lg text-slate-500 font-medium leading-relaxed">קטלוג מעוצב המאפשר לכם לבדוק, לערוך ולהוריד פונטים חופשיים ואיכותיים לעברית ישירות למחשב שלכם.</p>
-    </div>
-
-    <section class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm mb-12 space-y-6">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
-        
-        <div class="lg:col-span-5 space-y-2">
-          <label class="block text-xs font-black text-slate-400 uppercase tracking-wider">טקסט תצוגה גלובלי</label>
-          <div class="relative">
-            <input type="text" id="global-preview-text" value="זה אתר של פונטים בעברית" class="w-full bg-slate-50/50 border border-slate-100 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-brand-500 text-sm font-bold outline-none transition-all text-slate-800">
-            <button id="reset-preview-text" class="absolute left-4 top-1/2 -translate-y-1/2 text-xs text-brand-600 hover:text-brand-700 font-bold transition-colors">איפוס</button>
-          </div>
-        </div>
-
-        <div class="lg:col-span-4 space-y-2">
-          <label class="block text-xs font-black text-slate-400 uppercase tracking-wider">חיפוש פונטים בקטלוג</label>
-          <div class="relative">
-            <input type="text" id="search-input" placeholder="הקלידו שם פונט..." class="w-full bg-slate-50/50 border border-slate-100 rounded-2xl pr-12 pl-4 py-4 focus:ring-2 focus:ring-brand-500 text-sm font-bold outline-none transition-all text-slate-800">
-            <div class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
-              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m21-21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-              </svg>
-            </div>
-          </div>
-        </div>
-
-        <div class="lg:col-span-3 space-y-2">
-          <div class="flex justify-between items-center">
-            <label class="block text-xs font-black text-slate-400 uppercase tracking-wider">גודל טקסט: <span id="font-size-val" class="text-brand-600 font-black">40px</span></label>
-          </div>
-          <div class="flex items-center space-x-3 space-x-reverse h-14">
-            <span class="text-xs font-bold text-slate-400">א</span>
-            <input type="range" id="font-size-slider" min="20" max="80" value="40" class="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-brand-500">
-            <span class="text-lg font-bold text-slate-400">א</span>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="flex flex-wrap items-center gap-2 pt-4 border-t border-slate-50">
-        <span class="text-xs font-black text-slate-400 ml-2 uppercase">קטגוריות שימוש:</span>
-        <button data-category="all" class="category-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-brand-500 text-white shadow-md shadow-brand-500/10">הכל</button>
-        <button data-category="לשימוש מסחרי" class="category-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-50 hover:bg-slate-100 text-slate-600">לשימוש מסחרי</button>
-        <button data-category="לשימוש אישי" class="category-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-50 hover:bg-slate-100 text-slate-600">לשימוש אישי</button>
-        <button data-category="My Uploads" class="category-btn hidden px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-50 hover:bg-slate-100 text-slate-600">העלאות שלי (<span id="upload-count">0</span>)</button>
-      </div>
-    </section>
-
-    <div id="drop-zone" class="mb-12 border-2 border-dashed border-slate-200 hover:border-brand-500 rounded-3xl p-8 text-center transition-all cursor-pointer bg-white shadow-sm group">
-      <div class="flex flex-col items-center justify-center space-y-3">
-        <div class="p-4 bg-brand-50 rounded-2xl text-brand-500 group-hover:scale-105 transition-transform">
-          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-          </svg>
-        </div>
-        <p class="text-sm font-bold text-slate-700">רוצים לנסות פונט משלכם בממשק? גררו אותו לכאן</p>
-        <p class="text-xs text-slate-400 font-medium">קבצי TTF / OTF / WOFF ייטענו בצורה מאובטחת ומקומית בדפדפן</p>
-      </div>
-    </div>
-
-    <div id="loading-state" class="hidden flex-col items-center justify-center py-20 space-y-4">
-      <img src="./1.ico" alt="טעינה" class="w-12 h-12 object-contain animate-bounce" onerror="this.style.display='none'; document.getElementById('loader-spinner').style.display='block'">
-      <div id="loader-spinner" class="hidden w-12 h-12 border-4 border-brand-500 border-t-transparent rounded-full animate-spin"></div>
-      <p class="text-sm font-bold text-slate-400">טוען ומעבד את אוסף הפונטים...</p>
-    </div>
-
-    <div id="fonts-grid" class="grid grid-cols-1 gap-8"></div>
-
-    <div id="empty-state" class="hidden flex-col items-center justify-center py-20 text-center space-y-4">
-      <span class="text-5xl">✨</span>
-      <h3 class="text-xl font-bold text-slate-700">הקטלוג מוכן לפונטים שלכם</h3>
-      <p class="text-sm text-slate-400 max-w-xs font-medium">גררו קבצים לתיבה או הניחו אותם בתיקיית המאגר כדי לראות אותם מוצגים כאן.</p>
-    </div>
-
-  </main>
-
-  <footer class="mt-20 border-t border-slate-100 bg-white py-8 transition-colors duration-300">
-    <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
-      <div class="flex items-center space-x-3 space-x-reverse">
-        <img src="./1.ico" alt="לוגו" class="w-6 h-6 object-contain" onerror="this.style.display='none'">
-        <span class="font-extrabold text-slate-900">פונטסי</span>
-        <span class="text-slate-300">|</span>
-        <span class="text-xs text-slate-500">קטלוג פונטים מעוצבים וחופשיים לשימוש</span>
-      </div>
-      <div class="text-xs text-slate-400 font-medium">
-        כל הזכויות שמורות ליוצרי הפונטים השונים
-      </div>
-    </div>
-  </footer>
-
-  <script>
     let uploadedFonts = [];
     let systemFonts = [];
     let selectedFamilies = new Set();
@@ -273,23 +78,76 @@
         if (response.ok) subFiles = await response.json();
       } catch (e) {}
 
+      const fontPromises = [];
+
       if (Array.isArray(rootFiles)) {
         const rootFonts = rootFiles.filter(f => ['ttf', 'otf', 'woff', 'woff2'].includes(f.name.split('.').pop().toLowerCase()));
         for (const file of rootFonts) {
-          await loadAndRegisterFont(file.name, `./${file.name}`, 'לשימוש מסחרי');
+          fontPromises.push(loadAndRegisterFont(file.name, `./${file.name}`, 'לשימוש מסחרי'));
         }
       }
 
       if (Array.isArray(subFiles)) {
         const subFonts = subFiles.filter(f => ['ttf', 'otf', 'woff', 'woff2'].includes(f.name.split('.').pop().toLowerCase()));
         for (const file of subFonts) {
-          await loadAndRegisterFont(file.name, `./1/${file.name}`, 'לשימוש אישי');
+          fontFolder = `./1/${file.name}`;
+          fontUrl = fontFolder;
+          await loadAndRegisterFont(file.name, fontUrl, 'לשימוש אישי');
         }
       }
+
+      await Promise.all(fontFilesCheck = fontFilesPromiseAll(rootFiles, subFiles));
 
       loadingState.classList.remove('flex');
       loadingState.classList.add('hidden');
       renderFonts();
+    }
+
+    async function fetchFontsFromGitHub(username, repo) {
+      loadingState.classList.remove('hidden');
+      loadingState.classList.add('flex');
+      systemFonts = [];
+      
+      let rootFiles = [];
+      let subFiles = [];
+
+      try {
+        const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/`);
+        if (response.ok) rootFiles = await response.json();
+      } catch (e) {}
+
+      try {
+        const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/1`);
+        if (response.ok) subFiles = await response.json();
+      } catch (e) {}
+
+      const loadPromises = [];
+
+      if (Array.isArray(rootFiles)) {
+        const rootFonts = rootFiles.filter(f => ['ttf', 'otf', 'woff', 'woff2'].includes(f.name.split('.').pop().toLowerCase()));
+        for (const file of rootFonts) {
+          loadImg = loadAndRegisterFont(file.name, `./${file.name}`, 'לשימוש מסחרי');
+          loadPromisesArr = [];
+          loadPromisesArr.push(loadImg);
+          loadPromisesArrAll = Promise.allSettled(loadPromisesArr);
+          loadPromises.push(loadAndRegisterFont(file.name, `./${file.name}`, 'לשימוש מסחרי'));
+        }
+      }
+
+      if (Array.isArray(subFiles)) {
+        const subFonts = subFiles.filter(f => ['ttf', 'otf', 'woff', 'woff2'].includes(f.name.split('.').pop().toLowerCase()));
+        for (const file of subFonts) {
+          loadPromises.push(loadAndRegisterFont(file.name, `./1/${file.name}`, 'לשימוש אישי'));
+        }
+      }
+
+      renderFonts();
+
+      Promise.allSettled(loadPromises).then(() => {
+        loadingState.classList.remove('flex');
+        loadingState.classList.add('hidden');
+        renderFonts();
+      });
     }
 
     async function loadAndRegisterFont(fileName, urlPath, licenseType) {
@@ -316,6 +174,7 @@
       document.fonts.add(fontFace);
       try {
         await fontFace.load();
+        renderFonts();
       } catch (err) {}
     }
 
@@ -354,7 +213,7 @@
       setTimeout(() => {
         toast.classList.remove('translate-y-0', 'opacity-100');
         toast.classList.add('translate-y-20', 'opacity-0');
-      }, 3500);
+      }, 3000);
     }
 
     function groupFontsByFamily(fontsList) {
@@ -398,12 +257,21 @@
       editable.style.fontFamily = `'${safeName}', system-ui, sans-serif`;
       
       card.querySelectorAll('.style-chip').forEach(c => {
-        c.className = "style-chip px-3 py-1 text-xs font-bold rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-50 transition-all";
+        c.className = "style-chip px-3 py-1 text-xs font-bold rounded-lg border border-slate-200 text-slate-500 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all";
       });
-      btn.className = "style-chip px-3 py-1 text-xs font-extrabold rounded-lg border border-brand-500 bg-brand-50 text-brand-600 transition-all";
+      btn.className = "style-chip px-3 py-1 text-xs font-extrabold rounded-lg border border-brand-500 bg-brand-50 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300 transition-all";
 
       card.querySelector('.license-badge').innerText = license;
       card.querySelector('.category-badge').innerText = category;
+    }
+
+    function toggleFavorite(familyName) {
+      if (favoritedFamilies.has(familyName)) {
+        favoritedFamilies.delete(familyName);
+      } else {
+        favoritedFamilies.add(familyName);
+      }
+      renderFonts();
     }
 
     function updateSelectionUI() {
@@ -435,7 +303,6 @@
 
     downloadZipBtn.addEventListener('click', async () => {
       if (selectedFamilies.size === 0) return;
-      showToast("מכין קובץ ZIP המכיל את כל משפחות הפונטים שנבחרו...", "📦");
       
       try {
         const zip = new JSZip();
@@ -467,7 +334,6 @@
 
     async function downloadFamilyZip(groupEncoded) {
       const group = JSON.parse(decodeURIComponent(groupEncoded));
-      showToast(`מכין חבילת ZIP עבור ${group.family}...`, "📦");
       
       try {
         const zip = new JSZip();
@@ -493,9 +359,24 @@
       const allFonts = [...uploadedFonts, ...systemFonts];
       
       const filteredFonts = allFonts.filter(font => {
-        const matchesCategory = (currentCategory === 'all') || 
-                                (currentCategory === 'My Uploads' && font.isUploaded) || 
-                                (font.license === currentCategory);
+        let matchesCategory = false;
+        if (currentCategory === 'all') {
+          matchesCategory = true;
+        } else if (currentCategory === 'Favorites') {
+          const suffixRegex = /\s*(מודגש[- ]נטוי|מודגש|נטוי|רגיל|בולד|דק|קל|שמן|שחור|כבד|עבה|צר|רחב|חצי[- ]מודגש|חצי|איטליק|regular|bold[- ]italic|bolditalic|bold|italic|medium|light|thin|black|heavy|condensed|oblique|semibold|demibold|extra[- ]bold|extrabold)$/i;
+          let baseName = font.hebrewName.trim();
+          let previousName;
+          do {
+            previousName = baseName;
+            baseName = baseName.replace(suffixRegex, '').trim();
+          } while (baseName !== previousName && baseName.length > 0);
+          if (!baseName) baseName = font.hebrewName;
+          matchesCategory = favoritedFamilies.has(baseName);
+        } else if (currentCategory === 'My Uploads') {
+          matchesCategory = font.isUploaded;
+        } else {
+          matchesCategory = (font.license === currentCategory);
+        }
         
         const matchesSearch = font.hebrewName.toLowerCase().includes(currentSearch.toLowerCase());
                               
@@ -520,20 +401,21 @@
       groupedFamilies.forEach((group) => {
         const defaultFont = group.variations[0];
         const fontCard = document.createElement('div');
-        fontCard.className = "specimen-card bg-white border border-slate-100 rounded-3xl p-8 shadow-sm flex flex-col justify-between space-y-6 relative overflow-hidden";
+        fontCard.className = "specimen-card bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl p-8 shadow-sm flex flex-col justify-between space-y-6 relative overflow-hidden cursor-pointer";
         
         const isChecked = selectedFamilies.has(group.family);
+        const isFavorited = favoritedFamilies.has(group.family);
         const groupEncoded = encodeURIComponent(JSON.stringify(group));
 
         let styleSelectorHTML = '';
         if (group.variations.length > 1) {
           styleSelectorHTML = `
-            <div class="flex flex-wrap gap-1.5 mt-3 select-none">
+            <div class="flex flex-wrap gap-1.5 mt-3 select-none" onclick="event.stopPropagation()">
               ${group.variations.map((v, idx) => {
                 const styleName = getStyleDisplayName(v.hebrewName, group.family);
                 const activeClass = idx === 0 
-                  ? 'border-brand-500 bg-brand-50 text-brand-600' 
-                  : 'border-slate-200 text-slate-500 hover:bg-slate-50';
+                  ? 'border-brand-500 bg-brand-50 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300' 
+                  : 'border-slate-200 text-slate-500 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800';
                 return `
                   <button 
                     onclick="selectVariation(this, '${v.id}', '${v.license}', '${v.category}')" 
@@ -549,17 +431,22 @@
 
         fontCard.innerHTML = `
           <div class="space-y-6">
-            <div class="flex items-start justify-between border-b border-slate-50 pb-4">
-              <div class="flex items-center space-x-3 space-x-reverse">
-                <input type="checkbox" class="family-select-checkbox w-5 h-5 rounded-lg border-slate-200 text-brand-600 focus:ring-brand-500 transition-all cursor-pointer" data-family="${group.family}" ${isChecked ? 'checked' : ''}>
+            <div class="flex items-start justify-between border-b border-slate-50 dark:border-slate-800 pb-4">
+              <div class="flex items-center space-x-3 space-x-reverse" onclick="event.stopPropagation()">
+                <input type="checkbox" class="family-select-checkbox w-5 h-5 rounded-lg border-slate-200 dark:border-slate-800 text-brand-600 focus:ring-brand-500 transition-all cursor-pointer" data-family="${group.family}" ${isChecked ? 'checked' : ''}>
                 <div>
-                  <h3 class="text-xl font-black text-slate-800">${group.family}</h3>
+                  <h3 class="text-xl font-black text-slate-800 dark:text-white">${group.family}</h3>
                   <p class="text-xs text-slate-400 font-bold mt-1">סך הכל סגנונות: ${group.variations.length} • רישיון חופשי</p>
                 </div>
               </div>
-              <div class="flex flex-col items-end space-y-1">
-                <span class="license-badge px-3 py-1.5 text-[10px] font-black bg-slate-100 text-slate-600 rounded-xl uppercase tracking-wider">${defaultFont.license}</span>
-                <span class="category-badge px-2 py-0.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider">${defaultFont.category}</span>
+              <div class="flex items-center space-x-2 space-x-reverse" onclick="event.stopPropagation()">
+                <button onclick="toggleFavorite('${group.family}')" class="p-2 bg-slate-50 dark:bg-slate-800 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-xl transition-all">
+                  <svg class="w-5 h-5 ${isFavorited ? 'fill-red-500 text-red-500 scale-110' : 'text-slate-400 dark:text-slate-500'} transition-transform active:scale-95" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                  </svg>
+                </button>
+                <span class="license-badge px-3 py-1.5 text-[10px] font-black bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-xl uppercase tracking-wider">${defaultFont.license}</span>
+                <span class="category-badge px-2 py-0.5 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">${defaultFont.category}</span>
               </div>
             </div>
 
@@ -569,35 +456,40 @@
               <div 
                 contenteditable="true"
                 style="font-family: ${defaultFont.family}; font-size: ${currentFontSize}px;" 
-                class="color-font-render w-full bg-transparent focus:outline-none border-none p-0 leading-normal text-slate-900 outline-none"
+                class="color-font-render w-full bg-transparent focus:outline-none border-none p-0 leading-normal text-slate-900 dark:text-white outline-none"
                 data-family-id="${group.family}"
+                onclick="event.stopPropagation()"
               >${globalPreviewText}</div>
             </div>
 
-            <div class="text-xs text-slate-300 font-bold tracking-widest pt-2 border-t border-slate-50/50 flex justify-between items-center select-none">
+            <div class="text-xs text-slate-300 dark:text-slate-700 font-bold tracking-widest pt-2 border-t border-slate-50/50 dark:border-slate-800 flex justify-between items-center select-none">
               <span style="font-family: ${defaultFont.family};" class="color-font-render">א ב ג ד ה ו ז ח ט י כ ל מ נ ס ע פ צ ק ר ש ת</span>
-              <span class="text-[10px] bg-slate-50 text-slate-400 px-2.5 py-1 rounded-lg">תווים לדוגמה</span>
+              <span class="text-[10px] bg-slate-50 dark:bg-slate-800 text-slate-400 dark:text-slate-500 px-2.5 py-1 rounded-lg">תווים לדוגמה</span>
             </div>
           </div>
 
-          <div class="flex items-center justify-between pt-4 border-t border-slate-50">
+          <div class="flex items-center justify-between pt-4 border-t border-slate-50 dark:border-slate-800" onclick="event.stopPropagation()">
             <div class="flex items-center space-x-2 space-x-reverse">
-              <button onclick="toggleBold(this)" class="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-slate-800 hover:bg-slate-50 rounded-xl transition-all border border-transparent">
+              <button onclick="toggleBold(this)" class="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-slate-850 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-all border border-transparent">
                 <strong class="text-sm">B</strong>
               </button>
-              <button onclick="toggleItalic(this)" class="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-slate-800 hover:bg-slate-50 rounded-xl transition-all border border-transparent">
+              <button onclick="toggleItalic(this)" class="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-slate-850 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-all border border-transparent">
                 <span class="italic text-sm">I</span>
               </button>
             </div>
 
-            <button onclick="downloadFamilyZip('${groupEncoded}')" class="flex items-center space-x-2 space-x-reverse bg-brand-50 hover:bg-brand-100 text-brand-600 px-6 py-3 rounded-2xl text-xs font-black transition-all">
+            <button onclick="downloadFamilyZip('${groupEncoded}')" class="flex items-center space-x-2 space-x-reverse bg-brand-50 hover:bg-brand-100 text-brand-600 dark:bg-brand-900/30 dark:hover:bg-brand-900/50 dark:text-brand-300 px-6 py-3 rounded-2xl text-xs font-black transition-all">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
               </svg>
-              <span>${group.variations.length > 1 ? 'הורד חבילה (ZIP)' : 'הורד פונט'}</span>
+              <span>${group.variations.length > 1 ? 'הורד חבילה' : 'הורד פונט'}</span>
             </button>
           </div>
         `;
+
+        fontCard.addEventListener('click', () => {
+          openPlaygroundWithFamily(group);
+        });
         
         const checkbox = fontCard.querySelector('.family-select-checkbox');
         checkbox.addEventListener('change', () => {
@@ -633,7 +525,6 @@
       divs.forEach(div => {
         div.innerText = globalPreviewText;
       });
-      showToast("טקסט התצוגה אופס");
     });
 
     fontSizeSlider.addEventListener('input', (e) => {
@@ -653,7 +544,7 @@
     categoryBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         categoryBtns.forEach(b => {
-          b.className = "category-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-50 hover:bg-slate-100 text-slate-600";
+          b.className = "category-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-50 dark:bg-slate-850 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300";
         });
         
         btn.className = "category-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-brand-500 text-white shadow-md shadow-brand-500/10";
@@ -733,7 +624,7 @@
           uploadTabBtn.classList.remove('hidden');
           uploadTabBtn.click();
           
-          showToast("הגופן נטען בהצלחה!");
+          showToast(`הפונט "${fontBaseName}" נטען בהצלחה!`, "🎉");
         }).catch(() => {
           showToast("שגיאה בפענוח הקובץ", "❌");
         });
@@ -765,6 +656,325 @@
 
     dropZone.addEventListener('click', () => {
       fontUploadInput.click();
+    });
+
+    themeToggleBtn.addEventListener('click', () => {
+      if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('fontsy_theme', 'light');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('fontsy_theme', 'dark');
+      }
+    });
+
+    function openPlaygroundWithFamily(group) {
+      catalogView.classList.add('hidden');
+      playgroundView.classList.remove('hidden');
+      selectionBar.classList.add('hidden');
+
+      activeLayers = [];
+      selectedLayerId = null;
+      canvasLayersContainer.innerHTML = '';
+      
+      setCanvasBgColor('#ffffff');
+
+      const defaultFont = group.variations[0];
+      addLayerToCanvas(defaultFont, "זה אתר של פונטים בעברית");
+    }
+
+    function addLayerToCanvas(fontItem, textStr = "טקסט מעוצב") {
+      const layerId = `layer-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`;
+      
+      const layerObj = {
+        id: layerId,
+        fontId: fontItem.id,
+        familyName: fontItem.hebrewName,
+        family: fontItem.family,
+        text: textStr,
+        fontSize: 48,
+        letterSpacing: 0,
+        rotation: 0,
+        bold: false,
+        italic: false,
+        colorType: 'normal',
+        colorValue: '#1e293b',
+        weirdClass: '',
+        x: 80,
+        y: 120 + (activeLayers.length * 70),
+        license: fontItem.license,
+        category: fontItem.category
+      };
+
+      activeLayers.push(layerObj);
+      renderLayersInCanvas();
+      selectLayer(layerId);
+    }
+
+    function renderLayersInCanvas() {
+      const container = document.getElementById('canvas-layers-container');
+      container.innerHTML = '';
+
+      activeLayers.forEach(layer => {
+        const div = document.createElement('div');
+        div.id = layer.id;
+        div.className = `absolute cursor-move select-none p-3 border-2 ${selectedLayerId === layer.id ? 'border-brand-500/50 bg-brand-500/5' : 'border-transparent'} rounded-2xl transition-shadow duration-150`;
+        div.style.left = `${layer.x}px`;
+        div.style.top = `${layer.y}px`;
+
+        const innerSpan = document.createElement('span');
+        innerSpan.className = `color-font-render block whitespace-nowrap leading-none ${layer.weirdClass}`;
+        innerSpan.innerText = layer.text;
+        innerSpan.style.fontFamily = layer.family;
+        innerSpan.style.fontSize = `${layer.fontSize}px`;
+        innerSpan.style.letterSpacing = `${layer.letterSpacing}px`;
+        innerSpan.style.transform = `rotate(${layer.rotation}deg)`;
+        innerSpan.style.fontWeight = layer.bold ? 'bold' : 'normal';
+        innerSpan.style.fontStyle = layer.italic ? 'italic' : 'normal';
+        
+        if (layer.colorType === 'normal') {
+          innerSpan.style.color = layer.colorValue;
+          innerSpan.style.background = 'none';
+          innerSpan.style.webkitBackgroundClip = 'unset';
+          innerSpan.style.webkitTextFillColor = 'unset';
+        }
+
+        div.appendChild(innerSpan);
+        container.appendChild(div);
+
+        div.addEventListener('mousedown', (e) => startDrag(e, layer.id));
+        div.addEventListener('touchstart', (e) => startDrag(e, layer.id), { passive: true });
+        
+        div.addEventListener('click', (e) => {
+          e.stopPropagation();
+          selectLayer(layer.id);
+        });
+      });
+    }
+
+    let dragData = null;
+
+    function startDrag(e, layerId) {
+      selectLayer(layerId);
+      const layer = activeLayers.find(l => l.id === layerId);
+      if (!layer) return;
+
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+      dragData = {
+        layerId: layerId,
+        startX: clientX,
+        startY: clientY,
+        origX: layer.x,
+        origY: layer.y
+      };
+
+      document.addEventListener('mousemove', onDrag);
+      document.addEventListener('touchmove', onDrag, { passive: false });
+      document.addEventListener('mouseup', endDrag);
+      document.addEventListener('touchend', endDrag);
+    }
+
+    function onDrag(e) {
+      if (!dragData) return;
+      
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+      const dx = clientX - dragData.startX;
+      const dy = clientY - dragData.startY;
+
+      const layer = activeLayers.find(l => l.id === dragData.layerId);
+      if (layer) {
+        layer.x = dragData.origX + dx;
+        layer.y = dragData.origY + dy;
+        
+        const el = document.getElementById(layer.id);
+        if (el) {
+          el.style.left = `${layer.x}px`;
+          el.style.top = `${layer.y}px`;
+        }
+      }
+    }
+
+    function endDrag() {
+      dragData = null;
+      document.removeEventListener('mousemove', onDrag);
+      document.removeEventListener('touchmove', onDrag);
+      document.removeEventListener('mouseup', endDrag);
+      document.removeEventListener('touchend', endDrag);
+    }
+
+    function selectLayer(layerId) {
+      selectedLayerId = layerId;
+      const layer = activeLayers.find(l => l.id === layerId);
+      
+      if (!layer) {
+        noLayerSelectedEl.classList.remove('hidden');
+        layerControlsEl.classList.add('hidden');
+        return;
+      }
+
+      noLayerSelectedEl.classList.add('hidden');
+      layerControlsEl.classList.remove('hidden');
+
+      layerTextInput.value = layer.text;
+      layerSizeSlider.value = layer.fontSize;
+      layerSizeVal.innerText = `${layer.fontSize}px`;
+      layerSpacingSlider.value = layer.letterSpacing;
+      layerRotationSlider.value = layer.rotation;
+
+      if (layer.bold) {
+        layerBoldBtn.className = "py-2.5 rounded-xl border border-brand-500 bg-brand-50 text-xs font-black text-brand-600 transition-all";
+      } else {
+        layerBoldBtn.className = "py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-black text-slate-500 hover:bg-slate-50 transition-all";
+      }
+
+      if (layer.italic) {
+        layerItalicBtn.className = "py-2.5 rounded-xl border border-brand-500 bg-brand-50 text-xs font-black text-brand-600 transition-all";
+      } else {
+        layerItalicBtn.className = "py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-black text-slate-500 hover:bg-slate-50 transition-all";
+      }
+
+      renderLayersInCanvas();
+    }
+
+    layerTextInput.addEventListener('input', (e) => {
+      if (!selectedLayerId) return;
+      const layer = activeLayers.find(l => l.id === selectedLayerId);
+      if (layer) {
+        layer.text = e.target.value;
+        renderLayersInCanvas();
+      }
+    });
+
+    layerSizeSlider.addEventListener('input', (e) => {
+      if (!selectedLayerId) return;
+      const layer = activeLayers.find(l => l.id === selectedLayerId);
+      if (layer) {
+        layer.fontSize = parseInt(e.target.value);
+        layerSizeVal.innerText = `${layer.fontSize}px`;
+        renderLayersInCanvas();
+      }
+    });
+
+    layerSpacingSlider.addEventListener('input', (e) => {
+      if (!selectedLayerId) return;
+      const layer = activeLayers.find(l => l.id === selectedLayerId);
+      if (layer) {
+        layer.letterSpacing = parseInt(e.target.value);
+        renderLayersInCanvas();
+      }
+    });
+
+    layerRotationSlider.addEventListener('input', (e) => {
+      if (!selectedLayerId) return;
+      const layer = activeLayers.find(l => l.id === selectedLayerId);
+      if (layer) {
+        layer.rotation = parseInt(e.target.value);
+        renderLayersInCanvas();
+      }
+    });
+
+    layerBoldBtn.addEventListener('click', () => {
+      if (!selectedLayerId) return;
+      const layer = activeLayers.find(l => l.id === selectedLayerId);
+      if (layer) {
+        layer.bold = !layer.bold;
+        selectLayer(selectedLayerId);
+      }
+    });
+
+    layerItalicBtn.addEventListener('click', () => {
+      if (!selectedLayerId) return;
+      const layer = activeLayers.find(l => l.id === selectedLayerId);
+      if (layer) {
+        layer.italic = !layer.italic;
+        selectLayer(selectedLayerId);
+      }
+    });
+
+    deleteLayerBtn.addEventListener('click', () => {
+      if (!selectedLayerId) return;
+      activeLayers = activeLayers.filter(l => l.id !== selectedLayerId);
+      selectedLayerId = null;
+      selectLayer(null);
+    });
+
+    function setLayerNormalColor(colorHex) {
+      if (!selectedLayerId) return;
+      const layer = activeLayers.find(l => l.id === selectedLayerId);
+      if (layer) {
+        layer.colorType = 'normal';
+        layer.colorValue = colorHex;
+        layer.weirdClass = '';
+        renderLayersInCanvas();
+      }
+    }
+
+    function setLayerWeirdStyle(weirdClassName) {
+      if (!selectedLayerId) return;
+      const layer = activeLayers.find(l => l.id === selectedLayerId);
+      if (layer) {
+        layer.colorType = 'weird';
+        layer.weirdClass = weirdClassName;
+        renderLayersInCanvas();
+      }
+    }
+
+    function setCanvasBgColor(colorHex) {
+      designCanvas.className = "relative w-full h-[600px] border border-slate-100 dark:border-slate-800 rounded-3xl shadow-lg overflow-hidden select-none";
+      designCanvas.style.backgroundColor = colorHex;
+      designCanvas.style.background = '';
+    }
+
+    function setCanvasBgWeird(weirdClassName) {
+      designCanvas.style.backgroundColor = '';
+      designCanvas.style.background = '';
+      designCanvas.className = `relative w-full h-[600px] border border-slate-100 dark:border-slate-800 rounded-3xl shadow-lg overflow-hidden select-none ${weirdClassName}`;
+    }
+
+    backToCatalogBtn.addEventListener('click', () => {
+      playgroundView.classList.add('hidden');
+      catalogView.classList.remove('hidden');
+      updateSelectionUI();
+    });
+
+    addTextLayerBtn.addEventListener('click', () => {
+      modalFontsList.innerHTML = '';
+      const allFonts = [...uploadedFonts, ...systemFonts];
+      
+      allFonts.forEach(font => {
+        const btn = document.createElement('button');
+        btn.className = "w-full text-right px-4 py-3 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-850 border border-slate-100 dark:border-slate-800 text-sm font-bold text-slate-700 dark:text-slate-200 flex items-center justify-between";
+        btn.onclick = () => {
+          addLayerToCanvas(font);
+          addLayerModal.classList.add('hidden');
+        };
+        btn.innerHTML = `
+          <span>${font.hebrewName}</span>
+          <span class="text-[10px] text-brand-600 bg-brand-50 dark:bg-brand-900/40 dark:text-brand-300 px-2 py-0.5 rounded-lg">${font.category}</span>
+        `;
+        modalFontsList.appendChild(btn);
+      });
+
+      addLayerModal.classList.remove('hidden');
+      addLayerModal.classList.add('flex');
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+      addLayerModal.classList.add('hidden');
+    });
+
+    addLayerModal.addEventListener('click', (e) => {
+      if (e.target === addLayerModal) {
+        addLayerModal.classList.add('hidden');
+      }
+    });
+
+    designCanvas.addEventListener('click', () => {
+      selectLayer(null);
     });
   </script>
 </body>
