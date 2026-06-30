@@ -657,6 +657,8 @@
   </div>
 
   <script>
+    const GITHUB_REPO = ""; // פורמט: "username/repo" (חובה למלא כאן אם אתם משתמשים בדומיין מותאם אישית)
+
     let uploadedFonts = [];
     let systemFonts = [];
     let selectedFamilies = new Set();
@@ -679,7 +681,7 @@
       '1': 'זהב תלת-ממדי', '2': 'כסף מטאלי', '3': 'רוז גולד', '4': 'ברונזה עמוקה',
       '5': 'נאון מג\'נטה', '6': 'נאון סייאן', '7': 'נאון ירוק', '8': 'הולוגרפי זוהר',
       '9': 'קשת ספקטרום', '10': 'אש להבות', '11': 'קרח קפוא', '12': 'זכוכית חלבית',
-      '13': 'כרום נוזלי', '14': 'קרบון פחם', '15': 'אמרלד ירוק', '16': 'רובי אדום',
+      '13': 'כרום נוזלי', '14': 'קרבון פחם', '15': 'אמרלד ירוק', '16': 'רובי אדום',
       '17': 'ספיר כחול', '18': 'אמטיסט סגול', '19': 'סייברפאנק', '20': 'אייטיז רטרו',
       '21': 'שקיעה טרופית', '22': 'צמר גפן מתוק', '23': 'נייר וינטג\'', '24': 'חלל קוסמי',
       '25': 'לבה חמה', '26': 'הסוואה ירוקה', '27': 'בועת מים', '28': 'פלסטיק מבריק',
@@ -758,6 +760,18 @@
       initEvents();
       autoDetectAndLoad();
     });
+
+    function getBasePath() {
+      const path = window.location.pathname;
+      if (path.endsWith('/')) return path;
+      const parts = path.split('/');
+      const last = parts[parts.length - 1];
+      if (last.includes('.')) {
+        parts.pop();
+        return parts.join('/') + '/';
+      }
+      return path + '/';
+    }
 
     function initEvents() {
       globalPreviewInput.addEventListener('input', (e) => {
@@ -980,19 +994,51 @@
       });
     }
 
+    function buildWeirdStylesControls() {
+      weirdStylesListTarget.innerHTML = '';
+      weirdBgListTarget.innerHTML = '';
+
+      stylesRegistry.forEach(style => {
+        const btnText = document.createElement('button');
+        btnText.className = "flex items-center space-x-2 space-x-reverse px-2 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-right w-full";
+        btnText.onclick = () => setLayerWeirdStyle(style.textClass);
+        btnText.innerHTML = `
+          <span class="w-4 h-4 rounded shrink-0 shadow-sm border border-slate-200 dark:border-slate-700 ${style.preview}"></span>
+          <span class="text-xs font-bold text-slate-700 dark:text-slate-200">${style.name}</span>
+        `;
+        weirdStylesListTarget.appendChild(btnText);
+
+        const btnBg = document.createElement('button');
+        btnBg.className = "flex items-center space-x-2 space-x-reverse px-2 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-right w-full";
+        btnBg.onclick = () => setCanvasBgWeird(style.bgClass);
+        btnBg.innerHTML = `
+          <span class="w-4 h-4 rounded shrink-0 shadow-sm border border-slate-200 dark:border-slate-700 ${style.preview}"></span>
+          <span class="text-xs font-bold text-slate-700 dark:text-slate-200">${style.name}</span>
+        `;
+        weirdBgListTarget.appendChild(btnBg);
+      });
+    }
+
     async function autoDetectAndLoad() {
       let username = '';
       let repo = '';
-      const hostname = window.location.hostname;
-      const pathname = window.location.pathname;
 
-      if (hostname.endsWith('github.io')) {
-        username = hostname.split('.')[0];
-        const parts = pathname.split('/').filter(Boolean);
-        if (parts.length > 0) {
-          repo = parts[0];
-        } else {
-          repo = username + '.github.io';
+      if (typeof GITHUB_REPO !== 'undefined' && GITHUB_REPO && GITHUB_REPO.includes('/')) {
+        const parts = GITHUB_REPO.split('/');
+        username = parts[0].trim();
+        repo = parts[1].trim();
+      } else {
+        const hostname = window.location.hostname;
+        const pathname = window.location.pathname;
+
+        if (hostname.endsWith('github.io')) {
+          username = hostname.split('.')[0];
+          const parts = pathname.split('/').filter(Boolean);
+          if (parts.length > 0) {
+            repo = parts[0];
+          } else {
+            repo = username + '.github.io';
+          }
         }
       }
 
@@ -1054,18 +1100,21 @@
       } catch (e) {}
 
       const loadPromises = [];
+      const basePath = getBasePath();
 
       if (Array.isArray(rootFiles)) {
         const rootFonts = rootFiles.filter(f => ['ttf', 'otf', 'woff', 'woff2'].includes(f.name.split('.').pop().toLowerCase()));
         for (const file of rootFonts) {
-          loadPromises.push(loadAndRegisterFont(file.name, `./${file.name}`, 'לשימוש מסחרי'));
+          const localUrl = basePath + encodeURIComponent(file.name).replace(/'/g, '%27');
+          loadPromises.push(loadAndRegisterFont(file.name, localUrl, 'לשימוש מסחרי'));
         }
       }
 
       if (Array.isArray(subFiles)) {
         const subFonts = subFiles.filter(f => ['ttf', 'otf', 'woff', 'woff2'].includes(f.name.split('.').pop().toLowerCase()));
         for (const file of subFonts) {
-          loadPromises.push(loadAndRegisterFont(file.name, `./1/${file.name}`, 'לשימוש אישי'));
+          const localUrl = basePath + '1/' + encodeURIComponent(file.name).replace(/'/g, '%27');
+          loadPromises.push(loadAndRegisterFont(file.name, localUrl, 'לשימוש אישי'));
         }
       }
 
@@ -1098,12 +1147,33 @@
         isUploaded: false
       });
 
-      const fontFace = new FontFace(safeFontFamily, `url(${localUrl})`);
+      const fontFace = new FontFace(safeFontFamily, `url('${localUrl}')`);
       document.fonts.add(fontFace);
       try {
         await fontFace.load();
         renderFonts();
       } catch (err) {}
+    }
+
+    function injectFontFaceCSS(safeFontName, url, ext) {
+      const styleId = `style-${safeFontName}`;
+      if (!document.getElementById(styleId)) {
+        let format = 'truetype';
+        if (ext === 'otf') format = 'opentype';
+        else if (ext === 'woff') format = 'woff';
+        else if (ext === 'woff2') format = 'woff2';
+
+        const style = document.createElement('style');
+        style.id = styleId;
+        style.textContent = `
+          @font-face {
+            font-family: '${safeFontName}';
+            src: url('${url}') format('${format}');
+            font-display: swap;
+          }
+        `;
+        document.head.appendChild(style);
+      }
     }
 
     function toggleFavorite(familyName) {
@@ -1522,7 +1592,7 @@
       if (layer.bold) {
         layerBoldBtn.className = "py-2.5 rounded-xl border border-brand-500 bg-brand-50 text-xs font-black text-brand-600 transition-all";
       } else {
-        layerBoldBtn.className = "py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-black text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all";
+        layerBoldBtn.className = "py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-black text-slate-500 hover:bg-slate-50 transition-all";
       }
 
       if (layer.italic) {
