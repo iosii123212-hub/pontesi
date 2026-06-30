@@ -439,85 +439,86 @@
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto px-6 py-12">
-    
-    <div class="mb-16 text-center sm:text-right max-w-3xl">
-      <h2 class="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 leading-tight">גלו את היופי שבכתב העברי</h2>
-      <p class="mt-4 text-base sm:text-lg text-slate-500 font-medium leading-relaxed">קטלוג מעוצב המאפשר לכם לבדוק, לערוך ולהוריד פונטים חופשיים ואיכותיים לעברית ישירות למחשב שלכם.</p>
-    </div>
+  <div id="catalog-view">
+    <main class="max-w-7xl mx-auto px-6 py-12">
+      
+      <div class="mb-16 text-center sm:text-right max-w-3xl">
+        <h2 class="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 leading-tight">גלו את היופי שבכתב העברי</h2>
+        <p class="mt-4 text-base sm:text-lg text-slate-500 font-medium leading-relaxed">קטלוג מעוצב המאפשר לכם לבדוק, לערוך ולהוריד פונטים חופשיים ואיכותיים לעברית ישירות למחשב שלכם.</p>
+      </div>
 
-    <section class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm mb-12 space-y-6">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
-        
-        <div class="lg:col-span-5 space-y-2">
-          <label class="block text-xs font-black text-slate-400 uppercase tracking-wider">טקסט תצוגה גלובלי</label>
-          <div class="relative">
-            <input type="text" id="global-preview-text" value="זה אתר של פונטים בעברית" class="w-full bg-slate-50/50 border border-slate-100 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-brand-500 text-sm font-bold outline-none transition-all text-slate-800">
-            <button id="reset-preview-text" class="absolute left-4 top-1/2 -translate-y-1/2 text-xs text-brand-600 hover:text-brand-700 font-bold transition-colors">איפוס</button>
-          </div>
-        </div>
-
-        <div class="lg:col-span-4 space-y-2">
-          <label class="block text-xs font-black text-slate-400 uppercase tracking-wider">חיפוש פונטים בקטלוג</label>
-          <div class="relative">
-            <input type="text" id="search-input" placeholder="הקלידו שם פונט..." class="w-full bg-slate-50/50 border border-slate-100 rounded-2xl pr-12 pl-4 py-4 focus:ring-2 focus:ring-brand-500 text-sm font-bold outline-none transition-all text-slate-800">
-            <div class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
-              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m21-21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-              </svg>
+      <section class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm mb-12 space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
+          
+          <div class="lg:col-span-5 space-y-2">
+            <label class="block text-xs font-black text-slate-400 uppercase tracking-wider">טקסט תצוגה גלובלי</label>
+            <div class="relative">
+              <input type="text" id="global-preview-text" value="זה אתר של פונטים בעברית" class="w-full bg-slate-50/50 border border-slate-100 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-brand-500 text-sm font-bold outline-none transition-all text-slate-800">
+              <button id="reset-preview-text" class="absolute left-4 top-1/2 -translate-y-1/2 text-xs text-brand-600 hover:text-brand-700 font-bold transition-colors">איפוס</button>
             </div>
           </div>
-        </div>
 
-        <div class="lg:col-span-3 space-y-2">
-          <div class="flex justify-between items-center">
-            <label class="block text-xs font-black text-slate-400 uppercase tracking-wider">גודל טקסט: <span id="font-size-val" class="text-brand-600 font-black">40px</span></label>
+          <div class="lg:col-span-4 space-y-2">
+            <label class="block text-xs font-black text-slate-400 uppercase tracking-wider">חיפוש פונטים בקטלוג</label>
+            <div class="relative">
+              <input type="text" id="search-input" placeholder="הקלידו שם פונט..." class="w-full bg-slate-50/50 border border-slate-100 rounded-2xl pr-12 pl-4 py-4 focus:ring-2 focus:ring-brand-500 text-sm font-bold outline-none transition-all text-slate-800">
+              <div class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m21-21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                </svg>
+              </div>
+            </div>
           </div>
-          <div class="flex items-center space-x-3 space-x-reverse h-14">
-            <span class="text-xs font-bold text-slate-400">א</span>
-            <input type="range" id="font-size-slider" min="20" max="80" value="40" class="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-brand-500">
-            <span class="text-lg font-bold text-slate-400">א</span>
+
+          <div class="lg:col-span-3 space-y-2">
+            <div class="flex justify-between items-center">
+              <label class="block text-xs font-black text-slate-400 uppercase tracking-wider">גודל טקסט: <span id="font-size-val" class="text-brand-600 font-black">40px</span></label>
+            </div>
+            <div class="flex items-center space-x-3 space-x-reverse h-14">
+              <span class="text-xs font-bold text-slate-400">א</span>
+              <input type="range" id="font-size-slider" min="20" max="80" value="40" class="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-brand-500">
+              <span class="text-lg font-bold text-slate-400">א</span>
+            </div>
           </div>
+
         </div>
 
-      </div>
-
-      <div class="flex flex-wrap items-center gap-2 pt-4 border-t border-slate-50">
-        <span class="text-xs font-black text-slate-400 ml-2 uppercase">קטגוריות שימוש:</span>
-        <button data-category="all" class="category-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-brand-500 text-white shadow-md shadow-brand-500/10">הכל</button>
-        <button data-category="לשימוש מסחרי" class="category-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-50 hover:bg-slate-100 text-slate-600">לשימוש מסחרי</button>
-        <button data-category="לשימוש אישי" class="category-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-50 hover:bg-slate-100 text-slate-600">לשימוש אישי</button>
-        <button data-category="Favorites" class="category-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-50 hover:bg-slate-100 text-slate-600">❤️ מועדפים</button>
-        <button data-category="My Uploads" class="category-btn hidden px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-50 hover:bg-slate-100 text-slate-600">העלאות שלי (<span id="upload-count">0</span>)</button>
-      </div>
-    </section>
-
-    <div id="drop-zone" class="mb-12 border-2 border-dashed border-slate-200 dark:border-slate-800 hover:border-brand-500 rounded-3xl p-8 text-center transition-all cursor-pointer bg-white dark:bg-slate-900 shadow-sm group">
-      <div class="flex flex-col items-center justify-center space-y-3">
-        <div class="p-4 bg-brand-50 dark:bg-slate-850 rounded-2xl text-brand-500 group-hover:scale-105 transition-transform">
-          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-          </svg>
+        <div class="flex flex-wrap items-center gap-2 pt-4 border-t border-slate-50">
+          <span class="text-xs font-black text-slate-400 ml-2 uppercase">קטגוריות שימוש:</span>
+          <button data-category="all" class="category-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-brand-500 text-white shadow-md shadow-brand-500/10">הכל</button>
+          <button data-category="לשימוש מסחרי" class="category-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-50 hover:bg-slate-100 text-slate-600">לשימוש מסחרי</button>
+          <button data-category="לשימוש אישי" class="category-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-50 hover:bg-slate-100 text-slate-600">לשימוש אישי</button>
+          <button data-category="Favorites" class="category-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-50 hover:bg-slate-100 text-slate-600">❤️ מועדפים</button>
+          <button data-category="My Uploads" class="category-btn hidden px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-50 hover:bg-slate-100 text-slate-600">העלאות שלי (<span id="upload-count">0</span>)</button>
         </div>
-        <p class="text-sm font-bold text-slate-700 dark:text-slate-200">רוצים לנסות פונט משלכם בממשק? גררו אותו לכאן</p>
-        <p class="text-xs text-slate-400 font-medium">קבצי TTF / OTF / WOFF ייטענו בצורה מאובטחת ומקומית בדפדפן</p>
+      </section>
+
+      <div id="drop-zone" class="mb-12 border-2 border-dashed border-slate-200 dark:border-slate-800 hover:border-brand-500 rounded-3xl p-8 text-center transition-all cursor-pointer bg-white dark:bg-slate-900 shadow-sm group">
+        <div class="flex flex-col items-center justify-center space-y-3">
+          <div class="p-4 bg-brand-50 dark:bg-slate-850 rounded-2xl text-brand-500 group-hover:scale-105 transition-transform">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+          </div>
+          <p class="text-sm font-bold text-slate-700 dark:text-slate-200">רוצים לנסות פונט משלכם בממשק? גררו אותו לכאן</p>
+          <p class="text-xs text-slate-400 font-medium">קבצי TTF / OTF / WOFF ייטענו בצורה מאובטחת ומקומית בדפדפן</p>
+        </div>
       </div>
-    </div>
 
-    <div id="loading-state" class="hidden flex-col items-center justify-center py-20 space-y-4">
-      <div class="w-12 h-12 border-4 border-brand-500 border-t-transparent rounded-full animate-spin"></div>
-      <p class="text-sm font-bold text-slate-400">טוען ומעבד את אוסף הפונטים...</p>
-    </div>
+      <div id="loading-state" class="hidden flex-col items-center justify-center py-20 space-y-4">
+        <div class="w-12 h-12 border-4 border-brand-500 border-t-transparent rounded-full animate-spin"></div>
+        <p class="text-sm font-bold text-slate-400">טוען ומעבד את אוסף הפונטים...</p>
+      </div>
 
-    <div id="fonts-grid" class="grid grid-cols-1 gap-8"></div>
+      <div id="fonts-grid" class="grid grid-cols-1 gap-8"></div>
 
-    <div id="empty-state" class="hidden flex-col items-center justify-center py-20 text-center space-y-4">
-      <span class="text-5xl">✨</span>
-      <h3 class="text-xl font-bold text-slate-700">הקטלוג מוכן לפונטים שלכם</h3>
-      <p class="text-sm text-slate-400 max-w-xs font-medium">גררו קבצים לתיבה או הניחו אותם בתיקיית המאגר כדי לראות אותם מוצגים כאן.</p>
-    </div>
+      <div id="empty-state" class="hidden flex-col items-center justify-center py-20 text-center space-y-4">
+        <span class="text-5xl">✨</span>
+        <h3 class="text-xl font-bold text-slate-700">הקטלוג מוכן לפונטים שלכם</h3>
+        <p class="text-sm text-slate-400 max-w-xs font-medium">גררו קבצים לתיבה או הניחו אותם בתיקיית המאגר כדי לראות אותם מוצגים כאן.</p>
+      </div>
 
-  </main>
+    </main>
   </div>
 
   <div id="playground-view" class="hidden min-h-screen">
@@ -740,6 +741,13 @@
       weirdStylesListTarget = document.getElementById('weird-styles-list-target');
       weirdBgListTarget = document.getElementById('weird-bg-list-target');
 
+      const savedFavs = localStorage.getItem('fontsy_favorites');
+      if (savedFavs) {
+        try {
+          favoritedFamilies = new Set(JSON.parse(savedFavs));
+        } catch (e) {}
+      }
+
       if (localStorage.getItem('fontsy_theme') === 'dark' || (!('fontsy_theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         document.documentElement.classList.add('dark');
       } else {
@@ -787,7 +795,7 @@
       categoryBtns.forEach(btn => {
         btn.addEventListener('click', () => {
           categoryBtns.forEach(b => {
-            b.className = "category-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-50 hover:bg-slate-100 text-slate-600";
+            b.className = "category-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-50 dark:bg-slate-850 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300";
           });
           btn.className = "category-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-brand-500 text-white shadow-md shadow-brand-500/10";
           currentCategory = btn.getAttribute('data-category');
@@ -972,31 +980,6 @@
       });
     }
 
-    function buildWeirdStylesControls() {
-      weirdStylesListTarget.innerHTML = '';
-      weirdBgListTarget.innerHTML = '';
-
-      stylesRegistry.forEach(style => {
-        const btnText = document.createElement('button');
-        btnText.className = "flex items-center space-x-2 space-x-reverse px-2 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-right w-full";
-        btnText.onclick = () => setLayerWeirdStyle(style.textClass);
-        btnText.innerHTML = `
-          <span class="w-4 h-4 rounded shrink-0 shadow-sm border border-slate-200 dark:border-slate-700 ${style.preview}"></span>
-          <span class="text-xs font-bold text-slate-700 dark:text-slate-200">${style.name}</span>
-        `;
-        weirdStylesListTarget.appendChild(btnText);
-
-        const btnBg = document.createElement('button');
-        btnBg.className = "flex items-center space-x-2 space-x-reverse px-2 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-right w-full";
-        btnBg.onclick = () => setCanvasBgWeird(style.bgClass);
-        btnBg.innerHTML = `
-          <span class="w-4 h-4 rounded shrink-0 shadow-sm border border-slate-200 dark:border-slate-700 ${style.preview}"></span>
-          <span class="text-xs font-bold text-slate-700 dark:text-slate-200">${style.name}</span>
-        `;
-        weirdBgListTarget.appendChild(btnBg);
-      });
-    }
-
     async function autoDetectAndLoad() {
       let username = '';
       let repo = '';
@@ -1008,14 +991,48 @@
         const parts = pathname.split('/').filter(Boolean);
         if (parts.length > 0) {
           repo = parts[0];
+        } else {
+          repo = username + '.github.io';
         }
       }
 
       if (username && repo) {
         await fetchFontsFromGitHub(username, repo);
       } else {
+        loadMockFonts();
         renderFonts();
       }
+    }
+
+    function loadMockFonts() {
+      const mockList = [
+        { name: 'Assistant', family: 'Assistant', creator: 'בן נתן', license: 'לשימוש מסחרי', category: 'TTF' },
+        { name: 'Heebo', family: 'Heebo', creator: 'עודד עזר', license: 'לשימוש מסחרי', category: 'TTF' },
+        { name: 'Rubik', family: 'Rubik', creator: 'פיליפ הוברט', license: 'לשימוש אישי', category: 'TTF' },
+        { name: 'Varela Round', family: 'Varela Round', creator: 'אבישי ברעם', license: 'לשימוש מסחרי', category: 'TTF' },
+        { name: 'Frank Ruhl Libre', family: 'Frank Ruhl Libre', creator: 'יאניק פלוסקה', license: 'לשימוש אישי', category: 'OTF' },
+        { name: 'Amatic SC', family: 'Amatic SC', creator: 'ורנון אדאמס', license: 'לשימוש אישי', category: 'TTF' }
+      ];
+      
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://fonts.googleapis.com/css2?family=Amatic+SC&family=Assistant:wght@400;700&family=Frank+Ruhl+Libre&family=Heebo:wght@400;700&family=Rubik&family=Varela+Round&display=swap';
+      document.head.appendChild(link);
+      
+      mockList.forEach(font => {
+        const safeFontFamily = `fontsy-mock-${font.name.toLowerCase().replace(/\s+/g, '-')}`;
+        systemFonts.push({
+          id: safeFontFamily,
+          name: safeFontFamily,
+          hebrewName: font.name,
+          creator: font.creator,
+          category: font.category,
+          family: `'${font.family}', sans-serif`,
+          downloadUrl: `https://fonts.gstatic.com/s/${font.name.toLowerCase().replace(/\s+/g, '')}/v1/placeholder.ttf`,
+          license: font.license,
+          isUploaded: false
+        });
+      });
     }
 
     async function fetchFontsFromGitHub(username, repo) {
@@ -1095,6 +1112,7 @@
       } else {
         favoritedFamilies.add(familyName);
       }
+      localStorage.setItem('fontsy_favorites', JSON.stringify([...favoritedFamilies]));
       renderFonts();
     }
 
@@ -1504,13 +1522,13 @@
       if (layer.bold) {
         layerBoldBtn.className = "py-2.5 rounded-xl border border-brand-500 bg-brand-50 text-xs font-black text-brand-600 transition-all";
       } else {
-        layerBoldBtn.className = "py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-black text-slate-500 hover:bg-slate-50 transition-all";
+        layerBoldBtn.className = "py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-black text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all";
       }
 
       if (layer.italic) {
         layerItalicBtn.className = "py-2.5 rounded-xl border border-brand-500 bg-brand-50 text-xs font-black text-brand-600 transition-all";
       } else {
-        layerItalicBtn.className = "py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-black text-slate-500 hover:bg-slate-50 transition-all";
+        layerItalicBtn.className = "py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-black text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all";
       }
 
       renderLayersInCanvas();
